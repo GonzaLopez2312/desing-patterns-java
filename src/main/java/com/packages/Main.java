@@ -1,33 +1,42 @@
 package com.packages;
 
-
-import com.packages.Command.*;
-import com.packages.Proxy.Account;
-import com.packages.Proxy.BankAccount;
-import com.packages.Proxy.ProxyAccount;
-
-import java.lang.reflect.Proxy;
+import com.packages.Memento.Caretaker;
+import com.packages.Memento.Game;
+import com.packages.Memento.Originator;
 
 public class Main {
     public static void main(String[] args) {
 
-        TextEditor editor = new TextEditor();
-        EditorInvoker invoker = new EditorInvoker();
+        Game game = new Game("Level 1", 500.5, 2);
+        Originator originator = new Originator(game);
+        Caretaker caretaker = new Caretaker();
 
-        Command writeHello = new WriteCommand(editor, "Hello ");
-        Command writeWorld = new WriteCommand(editor, "World!");
+        game.printGame();
+        caretaker.addMemento(originator.saveGame());
 
-        invoker.executeCommand(writeHello);
-        invoker.executeCommand(writeWorld);
+        game = new Game("Level 2", 100.5, 5);
+        originator.setState(game);
+        caretaker.addMemento(originator.saveGame());
+        game.printGame();
 
-        invoker.undoLastCommand();
-        invoker.undoLastCommand();
+        game = new Game("Level 3", 200.0, 6);
+        game.printGame();
 
-        Command writeAgain = new WriteCommand(editor, "Again!");
-        invoker.executeCommand(writeAgain);
+        originator.restoreGame(caretaker.getMemento(1));
+        game = originator.getState();
+        game.printGame();
+        game = new Game("Level 3", 50, 7);
+        originator.setState(game);
+        game.printGame();
 
-        Command deleteAll = new DeleteCommand(editor);
-        invoker.executeCommand(deleteAll);
-        invoker.undoLastCommand();
+        game = new Game("Level 4", 200.5, 8);
+
+        game = new Game("Level 5", 600.5, 10);
+        originator.setState(game);
+        caretaker.addMemento(originator.saveGame());
+        game.printGame();
+
+
+
     }
 }

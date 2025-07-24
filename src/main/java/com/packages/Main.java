@@ -1,42 +1,23 @@
 package com.packages;
 
-import com.packages.Memento.Caretaker;
-import com.packages.Memento.Game;
-import com.packages.Memento.Originator;
+import com.packages.Observer.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        Game game = new Game("Level 1", 500.5, 2);
-        Originator originator = new Originator(game);
-        Caretaker caretaker = new Caretaker();
+        YPFRefineryObservable ypfRefineryObservable = new YPFRefineryObservable(1000);
+        ShellStationObserver shellStationObserver = new ShellStationObserver(1000);
+        YPFStationObserver ypfStationObserver = new YPFStationObserver(1000);
+        AxionStationObserver axionStationObserver = new AxionStationObserver(1000);
 
-        game.printGame();
-        caretaker.addMemento(originator.saveGame());
+        ypfRefineryObservable.subscribe(shellStationObserver);
+        ypfRefineryObservable.subscribe(ypfStationObserver);
+        ypfRefineryObservable.subscribe(axionStationObserver);
 
-        game = new Game("Level 2", 100.5, 5);
-        originator.setState(game);
-        caretaker.addMemento(originator.saveGame());
-        game.printGame();
+        ypfRefineryObservable.updateFuelPrice(1200);
 
-        game = new Game("Level 3", 200.0, 6);
-        game.printGame();
+        ypfRefineryObservable.unsubscribe(shellStationObserver);
 
-        originator.restoreGame(caretaker.getMemento(1));
-        game = originator.getState();
-        game.printGame();
-        game = new Game("Level 3", 50, 7);
-        originator.setState(game);
-        game.printGame();
-
-        game = new Game("Level 4", 200.5, 8);
-
-        game = new Game("Level 5", 600.5, 10);
-        originator.setState(game);
-        caretaker.addMemento(originator.saveGame());
-        game.printGame();
-
-
-
+        ypfRefineryObservable.updateFuelPrice(1150);
     }
 }

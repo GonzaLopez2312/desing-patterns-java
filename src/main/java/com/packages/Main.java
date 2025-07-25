@@ -1,23 +1,29 @@
 package com.packages;
 
 import com.packages.Observer.*;
+import com.packages.Strategy.Cash;
+import com.packages.Strategy.CreditCard;
+import com.packages.Strategy.DebitCard;
+import com.packages.Strategy.Sale;
 
 public class Main {
     public static void main(String[] args) {
 
-        YPFRefineryObservable ypfRefineryObservable = new YPFRefineryObservable(1000);
-        ShellStationObserver shellStationObserver = new ShellStationObserver(1000);
-        YPFStationObserver ypfStationObserver = new YPFStationObserver(1000);
-        AxionStationObserver axionStationObserver = new AxionStationObserver(1000);
+        Cash cash = new Cash();
+        CreditCard creditCard = new CreditCard();
+        DebitCard debitCard = new DebitCard();
 
-        ypfRefineryObservable.subscribe(shellStationObserver);
-        ypfRefineryObservable.subscribe(ypfStationObserver);
-        ypfRefineryObservable.subscribe(axionStationObserver);
+        Sale saleCash = new Sale(cash);
+        saleCash.executePayment(1000.0);
 
-        ypfRefineryObservable.updateFuelPrice(1200);
+        Sale saleCreditCard = new Sale(creditCard);
+        saleCreditCard.executePayment(1000.0);
 
-        ypfRefineryObservable.unsubscribe(shellStationObserver);
+        Sale saleDebitCard = new Sale(debitCard);
+        saleDebitCard.executePayment(1000.0);
 
-        ypfRefineryObservable.updateFuelPrice(1150);
+        saleDebitCard.setPaymentMethod(cash);
+        saleDebitCard.executePayment(1000.0);
+
     }
 }

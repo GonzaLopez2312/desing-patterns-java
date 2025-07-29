@@ -1,29 +1,24 @@
 package com.packages;
 
-import com.packages.Observer.*;
-import com.packages.Strategy.Cash;
-import com.packages.Strategy.CreditCard;
-import com.packages.Strategy.DebitCard;
-import com.packages.Strategy.Sale;
+
+import com.packages.Adapter.Football11Team;
+import com.packages.Adapter.Football11Tournament;
+import com.packages.Adapter.Football5Adapter;
+import com.packages.Adapter.Football5Team;
 
 public class Main {
     public static void main(String[] args) {
 
-        Cash cash = new Cash();
-        CreditCard creditCard = new CreditCard();
-        DebitCard debitCard = new DebitCard();
+        Football11Team football11Team = new Football11Team("River Plate", 11);
+        Football11Tournament football11Tournament = new Football11Tournament(11);
+        football11Tournament.availableToPlay(football11Team);
 
-        Sale saleCash = new Sale(cash);
-        saleCash.executePayment(1000.0);
+        Football5Team littleFootball5Team = new Football5Team("voka juni", 5, 3);
+        Football5Adapter littleFutbol5Adapter = new Football5Adapter(littleFootball5Team);
+        football11Tournament.availableToPlay(littleFutbol5Adapter);
 
-        Sale saleCreditCard = new Sale(creditCard);
-        saleCreditCard.executePayment(1000.0);
-
-        Sale saleDebitCard = new Sale(debitCard);
-        saleDebitCard.executePayment(1000.0);
-
-        saleDebitCard.setPaymentMethod(cash);
-        saleDebitCard.executePayment(1000.0);
-
+        Football5Team bigFootball5Team = new Football5Team("Big Team", 5, 8);
+        Football5Adapter bigFutbol5Adapter = new Football5Adapter(bigFootball5Team);
+        football11Tournament.availableToPlay(bigFutbol5Adapter);
     }
 }

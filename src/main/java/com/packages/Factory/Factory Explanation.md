@@ -1,3 +1,5 @@
+## *Factory Pattern*
+
 With the Factory Pattern, we can create a specific instance of a class, based on input parameters, without having to 
 specify the exact class name in our code. This pattern helps us make the process of creating new instances easier 
 when the type of object we need depends on a condition, a value, or a configuration. It promotes loose coupling, since 

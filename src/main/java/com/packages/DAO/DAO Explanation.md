@@ -1,3 +1,5 @@
+## *DAO Pattern*
+
 The DAO Pattern stands for Data Access Object. This pattern is used to encapsulate access to the database. The idea is 
 to separate the business logic from the database access into separate classes. Following this pattern, if there's a change
 in the database engine, the business logic won't be affected, and the only change that will be necessary is how to access

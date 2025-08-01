@@ -1,3 +1,5 @@
+## *Singleton Pattern*
+
 With the Singleton pattern, we assure that there is only one instance for a determined class. The advantage that we get,
 is performance.
 
